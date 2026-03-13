@@ -40,8 +40,13 @@ export default function MatrixRain() {
 
         // Lead character is brighter
         const isLead = Math.random() > 0.98;
+        const isRedAccent = Math.random() < 0.006;
         if (isLead) {
           ctx.fillStyle = "#ffffff";
+        } else if (isRedAccent) {
+          // Tiny red accent for occasional visual contrast (about 0.1%)
+          const opacity = 0.45 + Math.random() * 0.35;
+          ctx.fillStyle = `rgba(255, 0, 64, ${opacity})`;
         } else {
           const opacity = 0.3 + Math.random() * 0.7;
           ctx.fillStyle = `rgba(0, 255, 65, ${opacity})`;

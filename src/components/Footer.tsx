@@ -9,14 +9,13 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-cyber-green/10 py-8 px-4">
+    <footer className="border-t border-cyber-green/10 py-10 px-4 mt-8">
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+        <div className="section-shell p-5 sm:p-6 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
           {/* Left */}
-          <div className="font-mono text-xs text-foreground/40 text-center sm:text-left">
+          <div className="font-mono text-xs text-foreground/50 text-center sm:text-left">
             <p>
-              <span className="text-cyber-green">nidhal@portfolio:~$</span> echo
-              &quot;Built with Next.js &amp; TailwindCSS&quot;
+              <span className="text-cyber-green">portfolio.status:</span> live and actively maintained
             </p>
             <p className="mt-1">
               &copy; {new Date().getFullYear()} {personalInfo.name}. All rights
@@ -56,7 +55,7 @@ export default function Footer() {
             <button
               type="button"
               onClick={handleBackToTop}
-              className="ml-4 p-2 border border-cyber-green/20 rounded text-foreground/40 hover:text-cyber-green hover:border-cyber-green/50 transition-all"
+              className="ml-4 p-2 border border-cyber-green/20 rounded-lg text-foreground/40 hover:text-cyber-green hover:border-cyber-green/50 transition-all"
               aria-label="Back to top"
             >
               <FaArrowUp size={14} />

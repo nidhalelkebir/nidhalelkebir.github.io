@@ -4,24 +4,20 @@
 
 export const personalInfo = {
   name: "Nidhal El Kebir",
-  title: "Cybersecurity Engineering Student",
-  tagline: "Pentester | Offensive Security | CTF Player",
+  title: "Cybersecurity Engineering Student - Pentest & Network Security",
+  tagline: "Offensive Security | Pentest | Network Security",
   typingStrings: [
     "Cybersecurity Engineering Student",
-    "Penetration Tester",
-    "Offensive Security Enthusiast",
-    "CTF Player",
-    "Ethical Hacker",
+    "Pentest & Network Security",
+    "Offensive Security Focus",
+    "Web Vulnerability Analysis",
+    "Security Audit Enthusiast",
   ],
   email: "nidhalelkebir@gmail.com",
   github: "https://github.com/nidhalelkebir",
   linkedin: "https://linkedin.com/in/nidhalelkebir",
   cvUrl: "/CV NIDHAL EL KEBIR.pdf",
-  bio: `Cybersecurity engineering student at Epi Digital School, focused on offensive security and penetration testing. 
-  Hands-on experience in network enumeration, traffic analysis, and exploitation of vulnerable machines using Kali Linux. 
-  Experience as an IT support agent working on network-related tasks, user onboarding, workstation preparation, account setup, and environment provisioning for end users. 
-  Skilled in documenting vulnerabilities and proposing remediation measures. Active CTF competitor with a strong foundation 
-  in networking, web security, and system administration.`,
+  bio: `Cybersecurity engineering student specializing in offensive security (pentest), with hands-on practice in identifying network and web vulnerabilities through a personal lab environment. Experienced in network enumeration, traffic analysis, and exploitation of vulnerable Linux machines using Kali Linux. Skilled in documenting vulnerabilities and recommending remediation measures. Seeking a cybersecurity/pentest internship to contribute to security audits and continue strengthening technical skills.`,
 };
 
 export const skills = [
@@ -135,6 +131,36 @@ export const certifications = [
   },
 ];
 
+export const experiences = [
+  {
+    id: "exp-1",
+    role: "IT Technician Intern",
+    organization: "Aeroport Monastir (TAV)",
+    period: "2023",
+    summary:
+      "Supported security hardening through system updates, antivirus management, and user account administration. Provided technical assistance, troubleshooting, and workstation/peripheral maintenance for daily operations.",
+    tags: ["System Hardening", "Windows Support", "Account Administration"],
+  },
+  {
+    id: "exp-2",
+    role: "Computer Technician",
+    organization: "Almaarif Company",
+    period: "2024",
+    summary:
+      "Installed and maintained Windows workstations and peripherals while ensuring reliability and performance. Performed basic network configuration including IP addressing, gateway, DNS, and network sharing.",
+    tags: ["Windows", "Networking", "IT Operations"],
+  },
+  {
+    id: "exp-3",
+    role: "Web Developer",
+    organization: "PSI INFO",
+    period: "2025",
+    summary:
+      "Participated in web application module development, gained foundational database and application-logic knowledge, and performed functional testing and bug fixing. Built awareness of common vulnerabilities such as XSS and injection issues.",
+    tags: ["Web Development", "Testing", "Web Security Basics"],
+  },
+];
+
 export const projects = [
   {
     id: "proj-1",
@@ -220,9 +246,9 @@ export const projects = [
 
 export const stats = [
   { label: "Certifications Earned", value: 8, suffix: "" },
-  { label: "Professional Experiences", value: 3, suffix: "" },
-  { label: "CTF Challenges Solved", value: 50, suffix: "+" },
-  { label: "Years in IT/Cybersecurity", value: 3, suffix: "+" },
+  { label: "Work Experiences", value: 3, suffix: "" },
+  { label: "Degrees Pursued", value: 2, suffix: "" },
+  { label: "Working Languages", value: 3, suffix: "" },
 ];
 
 export const terminalCommands: Record<string, string> = {

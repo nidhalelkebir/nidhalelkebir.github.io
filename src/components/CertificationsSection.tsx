@@ -41,10 +41,10 @@ export default function CertificationsSection() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               onClick={() => setSelectedCert(cert)}
-              className="group cursor-pointer bg-dark-800/60 border border-cyber-green/10 rounded-lg overflow-hidden hover:border-cyber-green/40 hover:shadow-[0_0_15px_rgba(0,255,65,0.1)] transition-all duration-500 hover:-translate-y-2"
+              className="group cursor-pointer section-shell rounded-xl overflow-hidden transition-all duration-500 hover:-translate-y-2"
             >
               {/* Certificate Image Placeholder */}
-              <div className="relative h-28 bg-dark-700 overflow-hidden">
+              <div className="relative h-28 bg-dark-700/70 overflow-hidden border-b border-cyber-green/10">
                 <div className="absolute inset-0 bg-gradient-to-br from-cyber-green/5 to-cyber-blue/5 flex items-center justify-center">
                   <Image
                     src={cert.image}
@@ -59,21 +59,21 @@ export default function CertificationsSection() {
                 </div>
                 {/* Hover overlay */}
                 <div className="absolute inset-0 bg-cyber-green/0 group-hover:bg-cyber-green/5 transition-all duration-300 flex items-center justify-center">
-                  <span className="font-mono text-xs text-cyber-green opacity-0 group-hover:opacity-100 transition-opacity">
-                    [ Click to view ]
+                  <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-cyber-green opacity-0 group-hover:opacity-100 transition-opacity">
+                    View Details
                   </span>
                 </div>
               </div>
 
               {/* Card Info */}
               <div className="p-4">
-                <h3 className="font-mono text-sm font-bold text-foreground group-hover:text-cyber-green transition-colors mb-1 line-clamp-2">
+                <h3 className="font-mono text-sm font-semibold text-foreground group-hover:text-cyber-green transition-colors mb-2 line-clamp-2 leading-relaxed">
                   {cert.title}
                 </h3>
-                <p className="font-mono text-xs text-cyber-blue/70">
+                <p className="font-mono text-xs uppercase tracking-[0.1em] text-cyber-blue/70">
                   {cert.issuer}
                 </p>
-                <p className="font-mono text-xs text-foreground/40 mt-1">
+                <p className="font-mono text-xs text-foreground/45 mt-2">
                   {cert.date}
                 </p>
               </div>
@@ -96,7 +96,7 @@ export default function CertificationsSection() {
                 animate={{ scale: 1, y: 0 }}
                 exit={{ scale: 0.9, y: 20 }}
                 onClick={(e) => e.stopPropagation()}
-                className="bg-dark-800 border border-cyber-green/30 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+                className="section-shell max-w-2xl w-full max-h-[90vh] overflow-y-auto"
               >
                 {/* Modal header */}
                 <div className="flex justify-between items-center p-4 border-b border-cyber-green/20">
@@ -128,7 +128,7 @@ export default function CertificationsSection() {
                     />
                     <div className="absolute inset-0 flex items-center justify-center">
                       <span className="font-mono text-sm text-foreground/30">
-                        [ Certificate Image Placeholder ]
+                        Certificate Preview
                       </span>
                     </div>
                   </div>

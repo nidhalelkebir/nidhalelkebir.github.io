@@ -3,23 +3,19 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { FaBars, FaTimes, FaVolumeUp, FaVolumeMute } from "react-icons/fa";
+import { FaBars, FaTimes } from "react-icons/fa";
 
 const navItems = [
   { label: "Home", href: "#home" },
-  { label: "About", href: "#terminal" },
+  { label: "Bio", href: "#bio" },
+  { label: "Experience", href: "#experience" },
   { label: "Skills", href: "#skills" },
   { label: "Certifications", href: "#certifications" },
   { label: "Projects", href: "#projects" },
   { label: "Contact", href: "#contact" },
 ];
 
-interface NavbarProps {
-  soundEnabled: boolean;
-  toggleSound: () => void;
-}
-
-export default function Navbar({ soundEnabled, toggleSound }: NavbarProps) {
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -35,7 +31,7 @@ export default function Navbar({ soundEnabled, toggleSound }: NavbarProps) {
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-dark-900/95 backdrop-blur-md border-b border-cyber-green/20"
+          ? "bg-dark-900/88 backdrop-blur-xl border-b border-cyber-green/20 shadow-[0_10px_30px_rgba(0,0,0,0.35)]"
           : "bg-transparent"
       }`}
     >
@@ -67,25 +63,10 @@ export default function Navbar({ soundEnabled, toggleSound }: NavbarProps) {
               </Link>
             ))}
 
-            {/* Sound toggle */}
-            <button
-              onClick={toggleSound}
-              className="ml-4 p-2 text-foreground/50 hover:text-cyber-green transition-colors"
-              aria-label={soundEnabled ? "Mute sounds" : "Enable sounds"}
-            >
-              {soundEnabled ? <FaVolumeUp /> : <FaVolumeMute />}
-            </button>
           </div>
 
           {/* Mobile menu button */}
-          <div className="flex items-center md:hidden space-x-2">
-            <button
-              onClick={toggleSound}
-              className="p-2 text-foreground/50 hover:text-cyber-green transition-colors"
-              aria-label={soundEnabled ? "Mute sounds" : "Enable sounds"}
-            >
-              {soundEnabled ? <FaVolumeUp size={16} /> : <FaVolumeMute size={16} />}
-            </button>
+          <div className="flex items-center md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 text-cyber-green"

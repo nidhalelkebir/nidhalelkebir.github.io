@@ -91,7 +91,7 @@ export default function ContactSection() {
           className="text-center mb-16"
         >
           <p className="font-mono text-cyber-blue text-sm mb-2">
-            $ ssh contact@ghost
+            $ secure-connect --profile contact
           </p>
           <h2 className="font-mono text-3xl sm:text-4xl font-bold text-foreground">
             <span className="text-cyber-green">&gt;</span> Get In Touch
@@ -116,7 +116,7 @@ export default function ContactSection() {
             <div className="space-y-4">
               <a
                 href={`mailto:${personalInfo.email}`}
-                className="flex items-center space-x-4 p-4 bg-dark-800/50 border border-cyber-green/10 rounded-lg hover:border-cyber-green/30 transition-all group"
+                className="flex items-center space-x-4 p-4 section-shell rounded-xl hover:border-cyber-green/35 transition-all group"
               >
                 <FaEnvelope className="text-cyber-green text-xl group-hover:neon-green-glow" />
                 <div>
@@ -131,7 +131,7 @@ export default function ContactSection() {
                 href={personalInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-4 p-4 bg-dark-800/50 border border-cyber-green/10 rounded-lg hover:border-cyber-green/30 transition-all group"
+                className="flex items-center space-x-4 p-4 section-shell rounded-xl hover:border-cyber-green/35 transition-all group"
               >
                 <FaGithub className="text-cyber-green text-xl group-hover:neon-green-glow" />
                 <div>
@@ -146,7 +146,7 @@ export default function ContactSection() {
                 href={personalInfo.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-4 p-4 bg-dark-800/50 border border-cyber-green/10 rounded-lg hover:border-cyber-green/30 transition-all group"
+                className="flex items-center space-x-4 p-4 section-shell rounded-xl hover:border-cyber-green/35 transition-all group"
               >
                 <FaLinkedin className="text-cyber-blue text-xl" />
                 <div>
@@ -165,7 +165,7 @@ export default function ContactSection() {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4 section-shell p-5 sm:p-6 rounded-xl">
               <div>
                 <label className="font-mono text-xs text-cyber-blue block mb-1">
                   Name:
@@ -177,7 +177,7 @@ export default function ContactSection() {
                   onChange={(e) =>
                     setFormData((prev) => ({ ...prev, name: e.target.value }))
                   }
-                  className="w-full bg-dark-800/50 border border-cyber-green/20 rounded px-4 py-3 font-mono text-sm text-foreground focus:border-cyber-green focus:outline-none focus:shadow-[0_0_10px_rgba(0,255,65,0.2)] transition-all"
+                  className="w-full bg-dark-900/55 border border-cyber-green/20 rounded-lg px-4 py-3 font-mono text-sm text-foreground focus:border-cyber-green focus:outline-none focus:shadow-[0_0_10px_rgba(0,255,65,0.2)] transition-all"
                   placeholder="John Doe"
                 />
               </div>
@@ -193,7 +193,7 @@ export default function ContactSection() {
                   onChange={(e) =>
                     setFormData((prev) => ({ ...prev, email: e.target.value }))
                   }
-                  className="w-full bg-dark-800/50 border border-cyber-green/20 rounded px-4 py-3 font-mono text-sm text-foreground focus:border-cyber-green focus:outline-none focus:shadow-[0_0_10px_rgba(0,255,65,0.2)] transition-all"
+                  className="w-full bg-dark-900/55 border border-cyber-green/20 rounded-lg px-4 py-3 font-mono text-sm text-foreground focus:border-cyber-green focus:outline-none focus:shadow-[0_0_10px_rgba(0,255,65,0.2)] transition-all"
                   placeholder="john@example.com"
                 />
               </div>
@@ -209,7 +209,7 @@ export default function ContactSection() {
                     setFormData((prev) => ({ ...prev, message: e.target.value }))
                   }
                   rows={5}
-                  className="w-full bg-dark-800/50 border border-cyber-green/20 rounded px-4 py-3 font-mono text-sm text-foreground focus:border-cyber-green focus:outline-none focus:shadow-[0_0_10px_rgba(0,255,65,0.2)] transition-all resize-none"
+                  className="w-full bg-dark-900/55 border border-cyber-green/20 rounded-lg px-4 py-3 font-mono text-sm text-foreground focus:border-cyber-green focus:outline-none focus:shadow-[0_0_10px_rgba(0,255,65,0.2)] transition-all resize-none"
                   placeholder="Your message..."
                 />
               </div>
@@ -217,10 +217,10 @@ export default function ContactSection() {
               <button
                 type="submit"
                 disabled={sending}
-                className="w-full py-3 px-6 font-mono text-sm border border-cyber-green text-cyber-green hover:bg-cyber-green hover:text-dark-900 transition-all duration-300 rounded flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed neon-border-green"
+                className="w-full py-3 px-6 font-mono text-sm border border-cyber-green text-cyber-green hover:bg-cyber-green hover:text-dark-900 transition-all duration-300 rounded-lg flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <FaPaperPlane />
-                <span>{sending ? "Encrypting & Sending..." : "[ Send Encrypted Message ]"}</span>
+                <span>{sending ? "Sending securely..." : "[ Send Message ]"}</span>
               </button>
             </form>
 

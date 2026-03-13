@@ -40,7 +40,7 @@ export default function HeroSection() {
       id="home"
       className="relative min-h-screen flex items-center justify-center px-4"
     >
-      <div className="text-center z-10 max-w-4xl mx-auto">
+      <div className="text-center z-10 max-w-5xl mx-auto section-shell px-6 sm:px-10 py-12 sm:py-16">
         {/* Decorative top line */}
         <motion.div
           initial={{ opacity: 0, width: 0 }}
@@ -88,10 +88,27 @@ export default function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.3 }}
-          className="text-foreground/60 font-mono text-sm sm:text-base mb-10 max-w-lg mx-auto"
+          className="text-foreground/65 font-mono text-sm sm:text-base mb-10 max-w-2xl mx-auto leading-relaxed"
         >
           {personalInfo.tagline}
         </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.45 }}
+          className="flex flex-wrap items-center justify-center gap-2 mb-9"
+        >
+          <span className="px-3 py-1 rounded-full border border-cyber-green/35 bg-cyber-green/10 text-cyber-green text-[11px] font-mono uppercase tracking-[0.1em]">
+            Offensive Security
+          </span>
+          <span className="px-3 py-1 rounded-full border border-cyber-blue/35 bg-cyber-blue/10 text-cyber-blue text-[11px] font-mono uppercase tracking-[0.1em]">
+            Pentesting
+          </span>
+          <span className="px-3 py-1 rounded-full border border-cyber-green/35 bg-cyber-green/10 text-cyber-green text-[11px] font-mono uppercase tracking-[0.1em]">
+            CTF Active
+          </span>
+        </motion.div>
 
         {/* Buttons */}
         <motion.div
@@ -104,7 +121,7 @@ export default function HeroSection() {
             href="#projects"
             className="group relative px-8 py-3 font-mono text-sm border border-cyber-green text-cyber-green hover:bg-cyber-green hover:text-dark-900 transition-all duration-300 neon-border-green"
           >
-            <span className="relative z-10">[ View Projects ]</span>
+            <span className="relative z-10">[ View Work ]</span>
           </a>
           <a
             href="#certifications"
@@ -118,7 +135,7 @@ export default function HeroSection() {
             rel="noopener noreferrer"
             className="group relative px-8 py-3 font-mono text-sm bg-cyber-green/10 border border-cyber-green/50 text-cyber-green hover:bg-cyber-green/20 transition-all duration-300"
           >
-            <span className="relative z-10">↓ Download CV</span>
+            <span className="relative z-10">Download Resume</span>
           </a>
         </motion.div>
 

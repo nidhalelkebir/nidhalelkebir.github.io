@@ -10,7 +10,7 @@ const categoryIcons: Record<string, string> = {
   Languages: "{ }",
   Tools: "[#]",
   Systems: "$ _",
-  Domains: "🛡",
+  Domains: "[SEC]",
 };
 
 export default function SkillsSection() {
@@ -45,7 +45,7 @@ export default function SkillsSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: catIndex * 0.15 }}
-              className="bg-dark-800/50 border border-cyber-green/10 rounded-lg p-6 hover:border-cyber-green/30 transition-all duration-300"
+              className="bg-dark-800/50 border border-cyber-green/10 rounded-lg p-6 hover:border-cyber-green/30 hover:shadow-[0_0_18px_rgba(0,255,65,0.08)] transition-all duration-300"
             >
               {/* Category header */}
               <div className="flex items-center space-x-3 mb-6">

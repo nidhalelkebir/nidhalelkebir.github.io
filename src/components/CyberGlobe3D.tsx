@@ -224,6 +224,7 @@ function DataParticles({ count, globeRadius }: { count: number; globeRadius: num
 
 function CyberGlobe() {
   const wireframeRef = useRef<THREE.Mesh>(null);
+  const atmosphereRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
   const globeRadius = 2;
 
@@ -238,20 +239,29 @@ function CyberGlobe() {
       wireframeRef.current.rotation.y = t * 0.08;
       wireframeRef.current.rotation.x = Math.sin(t * 0.05) * 0.1;
     }
+    if (atmosphereRef.current) {
+      atmosphereRef.current.rotation.y = -t * 0.04;
+    }
   });
 
   return (
     <group>
-      {/* Inner dark sphere */}
-      <mesh>
-        <sphereGeometry args={[globeRadius - 0.05, 32, 32]} />
-        <meshStandardMaterial color="#050505" transparent opacity={0.9} />
+      {/* Soft atmospheric shell for a clean premium look */}
+      <mesh ref={atmosphereRef}>
+        <sphereGeometry args={[globeRadius + 0.02, 48, 48]} />
+        <meshBasicMaterial
+          color="#00d4ff"
+          transparent
+          opacity={0.08}
+          side={THREE.BackSide}
+          blending={THREE.AdditiveBlending}
+        />
       </mesh>
 
       {/* Wireframe globe */}
       <mesh ref={wireframeRef}>
-        <sphereGeometry args={[globeRadius, 24, 24]} />
-        <meshStandardMaterial color="#00ff41" wireframe transparent opacity={0.12} />
+        <sphereGeometry args={[globeRadius, 36, 36]} />
+        <meshStandardMaterial color="#00ff41" wireframe transparent opacity={0.22} />
       </mesh>
 
       {/* Rotating group: cities, attacks, particles */}
@@ -285,12 +295,12 @@ function CyberGlobe() {
 
       {/* Outer rings */}
       <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[2.5, 0.01, 16, 100]} />
-        <meshStandardMaterial color="#00ff41" transparent opacity={0.3} />
+        <torusGeometry args={[2.45, 0.007, 20, 160]} />
+        <meshStandardMaterial color="#00ff41" transparent opacity={0.22} />
       </mesh>
       <mesh rotation={[Math.PI / 3, Math.PI / 4, 0]}>
-        <torusGeometry args={[2.7, 0.008, 16, 100]} />
-        <meshStandardMaterial color="#00d4ff" transparent opacity={0.2} />
+        <torusGeometry args={[2.7, 0.006, 20, 160]} />
+        <meshStandardMaterial color="#00d4ff" transparent opacity={0.16} />
       </mesh>
     </group>
   );
@@ -298,32 +308,24 @@ function CyberGlobe() {
 
 export default function CyberGlobe3D() {
   return (
-    <div className="w-full h-[300px] sm:h-[400px] relative">
+    <div className="w-full h-[320px] sm:h-[420px] relative bg-transparent">
       <Canvas
-        camera={{ position: [0, 0, 5.5], fov: 45 }}
+        camera={{ position: [0, 0, 5.5], fov: 42 }}
+        dpr={[1, 2]}
         gl={{ antialias: true, alpha: true }}
         style={{ background: "transparent" }}
       >
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} color="#00ff41" intensity={0.5} />
-        <pointLight position={[-10, -10, -10]} color="#00d4ff" intensity={0.3} />
+        <ambientLight intensity={0.42} />
+        <pointLight position={[8, 10, 12]} color="#00ff41" intensity={0.42} />
+        <pointLight position={[-8, -8, -10]} color="#00d4ff" intensity={0.25} />
         <CyberGlobe />
         <OrbitControls
           enableZoom={false}
           enablePan={false}
           autoRotate
-          autoRotateSpeed={0.3}
+          autoRotateSpeed={0.36}
         />
       </Canvas>
-
-      {/* Glow overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle at center, transparent 30%, rgba(10,10,10,0.8) 70%)",
-        }}
-      />
     </div>
   );
 }

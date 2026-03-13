@@ -41,10 +41,53 @@ html {
 }
 
 body {
-  background: #0a0a0a;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(0, 212, 255, 0.09), transparent 35%),
+    radial-gradient(circle at 82% 12%, rgba(0, 255, 65, 0.08), transparent 38%),
+    radial-gradient(circle at 62% 8%, rgba(255, 0, 64, 0.07), transparent 30%),
+    radial-gradient(circle at 50% 85%, rgba(0, 255, 65, 0.06), transparent 40%),
+    #0a0a0a;
   color: #e0e0e0;
   font-family: var(--font-mono), 'Courier New', monospace;
   overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+  opacity: 0.26;
+  background-image:
+    linear-gradient(rgba(0, 255, 65, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.08) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.95), transparent 88%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: -15% -10%;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 18% 24%, rgba(0, 212, 255, 0.12), transparent 36%),
+    radial-gradient(circle at 74% 70%, rgba(0, 255, 65, 0.11), transparent 42%),
+    radial-gradient(circle at 82% 24%, rgba(255, 0, 64, 0.1), transparent 33%);
+  filter: blur(36px);
+  animation: driftFog 16s ease-in-out infinite alternate;
+}
+
+@keyframes driftFog {
+  from {
+    transform: translate3d(-2%, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(2%, -1.5%, 0) scale(1.03);
+  }
 }
 
 ::selection {
@@ -167,4 +210,19 @@ body {
 
 .crt-flicker {
   animation: flicker 5s infinite;
+}
+
+.section-shell {
+  background: linear-gradient(140deg, rgba(17, 17, 17, 0.62), rgba(10, 10, 10, 0.44));
+  border: 1px solid rgba(0, 255, 65, 0.16);
+  border-radius: 16px;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(0, 255, 65, 0.08),
+    inset 0 -1px 0 rgba(255, 0, 64, 0.12);
+  backdrop-filter: blur(7px);
+}
+
+.section-shell:hover {
+  border-color: rgba(0, 255, 65, 0.28);
 }
