@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { stats } from "@/data/portfolio";
+import SectionHeading from "@/components/SectionHeading";
+import TiltCard from "@/components/TiltCard";
 
 function AnimatedCounter({
   end,
@@ -19,17 +21,19 @@ function AnimatedCounter({
   useEffect(() => {
     if (!inView) return;
 
-    let start = 0;
-    const duration = 2000;
-    const increment = end / (duration / 16);
+    let frame = 0;
+    const duration = 1600;
+    const totalFrames = Math.round(duration / 16);
 
     const timer = setInterval(() => {
-      start += increment;
-      if (start >= end) {
+      frame += 1;
+      // easeOutExpo — fast start, soft landing
+      const progress = frame / totalFrames;
+      const eased = progress >= 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      setCount(Math.round(end * eased));
+      if (frame >= totalFrames) {
         setCount(end);
         clearInterval(timer);
-      } else {
-        setCount(Math.floor(start));
       }
     }, 16);
 
@@ -37,57 +41,49 @@ function AnimatedCounter({
   }, [end, inView]);
 
   return (
-    <span className="text-3xl sm:text-4xl md:text-5xl font-semibold font-mono tracking-tight text-foreground">
-      {count}
+    <span className="font-mono text-4xl sm:text-5xl font-bold tracking-tight">
+      <span className="holo-text">{count}</span>
       <span className="text-cyber-green">{suffix}</span>
     </span>
   );
 }
 
 export default function StatsSection() {
-  const { ref, inView } = useInView({ threshold: 0.3, triggerOnce: true });
+  const { ref, inView } = useInView({ threshold: 0.25, triggerOnce: true });
 
   return (
     <section className="py-20 px-4" ref={ref}>
       <div className="max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-10"
-        >
-          <p className="font-mono text-cyber-blue text-sm mb-2">$ cat impact/metrics.json</p>
-          <h2 className="font-mono text-2xl sm:text-3xl font-semibold text-foreground">
-            Professional Metrics
-          </h2>
-        </motion.div>
+        <SectionHeading
+          eyebrow="Telemetry"
+          title="By the Numbers"
+          inView={inView}
+        />
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5"
-        >
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-              className="relative p-5 sm:p-6 section-shell hover:-translate-y-0.5 transition-all duration-300"
+              transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="h-[2px] w-12 bg-gradient-to-r from-cyber-green/80 to-cyber-blue/70 rounded mb-4" />
-              <AnimatedCounter
-                end={stat.value}
-                suffix={stat.suffix}
-                inView={inView}
-              />
-              <p className="font-mono text-xs uppercase tracking-[0.14em] text-foreground/55 mt-3 leading-relaxed">
-                {stat.label}
-              </p>
+              <TiltCard
+                max={7}
+                className="section-shell glass-edge relative overflow-hidden rounded-xl p-5 sm:p-6"
+              >
+                <div className="scan-sweep" />
+                <div className="tilt-layer relative">
+                  <div className="mb-4 h-[2px] w-10 rounded bg-white/20" />
+                  <AnimatedCounter end={stat.value} suffix={stat.suffix} inView={inView} />
+                  <p className="mt-3 font-mono text-[10px] uppercase leading-relaxed tracking-[0.16em] text-foreground/45">
+                    {stat.label}
+                  </p>
+                </div>
+              </TiltCard>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

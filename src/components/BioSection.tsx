@@ -3,69 +3,105 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { personalInfo } from "@/data/portfolio";
+import SectionHeading from "@/components/SectionHeading";
+import { FaCrosshairs, FaToolbox, FaServer, FaFlag } from "react-icons/fa";
 
 const highlights = [
-  "Offensive security and penetration testing focus",
-  "Hands-on with Kali Linux, Nmap, Wireshark, Burp Suite, and Metasploit",
-  "Experience in IT support, onboarding, and secure environment setup",
-  "Active CTF player with practical web and network security skills",
+  {
+    icon: FaCrosshairs,
+    title: "Offensive focus",
+    text: "Penetration testing and vulnerability research as my primary specialization.",
+  },
+  {
+    icon: FaToolbox,
+    title: "Hands-on toolkit",
+    text: "Kali Linux, Nmap, Wireshark, Burp Suite, and Metasploit in a personal lab.",
+  },
+  {
+    icon: FaServer,
+    title: "Real IT ops",
+    text: "Network operations, support, and secure environment setup across four internships.",
+  },
+  {
+    icon: FaFlag,
+    title: "Continuous practice",
+    text: "Structured CTF and lab work covering web, Linux, and privilege escalation.",
+  },
 ];
 
 export default function BioSection() {
-  const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
+  const { ref, inView } = useInView({ threshold: 0.15, triggerOnce: true });
 
   return (
     <section id="bio" className="py-20 px-4" ref={ref}>
       <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-14"
-        >
-          <p className="font-mono text-cyber-blue text-sm mb-2">
-            $ cat profile/bio.md
-          </p>
-          <h2 className="font-mono text-3xl sm:text-4xl font-bold text-foreground">
-            <span className="text-cyber-green">[</span>
-            Professional Bio
-            <span className="text-cyber-green">]</span>
-          </h2>
-          <div className="h-[1px] bg-gradient-to-r from-transparent via-cyber-green/50 to-transparent mt-4 max-w-xs mx-auto" />
-        </motion.div>
+        <SectionHeading eyebrow="Profile" title="Who I Am" inView={inView} />
 
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.15 }}
-          className="section-shell overflow-hidden"
-        >
-          <div className="px-6 py-4 border-b border-cyber-green/15 bg-dark-700/60">
-            <p className="font-mono text-xs uppercase tracking-[0.18em] text-cyber-green/60">
-              Summary
-            </p>
-            <p className="font-mono text-sm text-foreground/80 mt-2 leading-relaxed">
-              {personalInfo.bio}
-            </p>
-          </div>
+        <div className="grid gap-5 lg:grid-cols-5">
+          {/* Summary panel */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="section-shell glass-edge relative overflow-hidden rounded-xl p-7 lg:col-span-3"
+          >
+            
 
-          <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-            {highlights.map((item, index) => (
-              <motion.div
-                key={item}
-                initial={{ opacity: 0, x: -15 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.4, delay: 0.25 + index * 0.1 }}
-                className="flex items-start gap-3 p-4 rounded-lg bg-dark-900/40 border border-cyber-green/10"
-              >
-                <span className="font-mono text-cyber-green text-sm mt-[2px]">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <p className="font-mono text-sm text-foreground/75 leading-relaxed">{item}</p>
-              </motion.div>
-            ))}
+            <div className="relative">
+              <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground/40">
+                <span className="h-1.5 w-1.5 rounded-full bg-white/30 " />
+                Summary
+              </div>
+
+              <p className="mt-5 font-mono text-[15px] leading-[1.85] text-foreground/75">
+                {personalInfo.bio}
+              </p>
+
+              <div className="mt-7 flex flex-wrap gap-2">
+                {["Kali Linux", "Nmap", "Wireshark", "Burp Suite", "Metasploit", "Python"].map(
+                  (tool) => (
+                    <span
+                      key={tool}
+                      className="rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1 font-mono text-[11px] text-foreground/60"
+                    >
+                      {tool}
+                    </span>
+                  )
+                )}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Highlight stack */}
+          <div className="grid gap-4 lg:col-span-2">
+            {highlights.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.15 + index * 0.09,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="section-shell group flex items-start gap-4 rounded-xl p-5 transition-colors"
+                >
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 text-foreground/70 transition-colors group-hover:border-white/25">
+                    <Icon size={15} />
+                  </div>
+                  <div>
+                    <p className="font-mono text-sm font-semibold text-foreground">{item.title}</p>
+                    <p className="mt-1.5 font-mono text-xs leading-relaxed text-foreground/55">
+                      {item.text}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

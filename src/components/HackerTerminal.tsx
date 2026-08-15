@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { terminalCommands } from "@/data/portfolio";
@@ -12,8 +13,8 @@ interface TerminalLine {
 
 export default function HackerTerminal() {
   const [lines, setLines] = useState<TerminalLine[]>([
-    { type: "output", content: 'Welcome to CyberPortfolio v1.0.0' },
-    { type: "output", content: 'Type "help" to see available commands.\n' },
+    { type: "output", content: "ghost shell — Nidhal El Kebir // security profile" },
+    { type: "output", content: 'Type "help" to list available commands.\n' },
   ]);
   const [currentInput, setCurrentInput] = useState("");
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
@@ -99,26 +100,32 @@ export default function HackerTerminal() {
           transition={{ duration: 0.8 }}
         >
           {/* Section header */}
-          <div className="text-center mb-8">
-            <h2 className="font-mono text-2xl sm:text-3xl text-foreground mb-2">
-              <span className="text-cyber-green">&gt;</span> Interactive Terminal
+          <div className="mb-8">
+            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-1.5 backdrop-blur-sm">
+              <span className="h-1.5 w-1.5 rounded-full bg-cyber-blue " />
+              <span className="eyebrow font-mono">ghost shell</span>
+            </div>
+            <h2 className="mt-5 font-mono text-3xl sm:text-4xl font-bold tracking-tight">
+              <span className="holo-text">Query My Profile</span>
             </h2>
-            <p className="text-foreground/50 font-mono text-sm">
-              Try typing &quot;help&quot; to explore
+            <p className="mt-3 font-mono text-sm text-foreground/45">
+              Type <span className="text-cyber-blue">help</span> — certifications, skills, and
+              experience straight from the live data.
             </p>
           </div>
 
           {/* Terminal window */}
-          <div className="border border-cyber-green/30 rounded-lg overflow-hidden shadow-2xl">
+          <div className="section-shell overflow-hidden rounded-xl">
             {/* Title bar */}
-            <div className="bg-dark-700 px-4 py-2 flex items-center justify-between border-b border-cyber-green/20">
-              <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 rounded-full bg-cyber-red" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                <div className="w-3 h-3 rounded-full bg-cyber-green" />
+            <div className="flex items-center justify-between border-b border-white/[0.07] bg-white/[0.03] px-4 py-2.5">
+              <div className="flex items-center gap-2">
+                <div className="h-3 w-3 rounded-full bg-cyber-red/80" />
+                <div className="h-3 w-3 rounded-full bg-amber-400/80" />
+                <div className="h-3 w-3 rounded-full bg-cyber-green/80" />
               </div>
-              <span className="font-mono text-xs text-foreground/50">
-                root@ghost:~
+              <span className="flex items-center gap-2 font-mono text-xs text-foreground/45">
+                <Image src="/skull.svg" alt="" width={14} height={14} className="opacity-70" />
+                ghost@nidhal:~
               </span>
               <div className="w-16" />
             </div>
@@ -126,21 +133,21 @@ export default function HackerTerminal() {
             {/* Terminal body */}
             <div
               ref={terminalRef}
-              className="bg-dark-900/95 p-4 h-80 sm:h-96 overflow-y-auto font-mono text-sm cursor-text"
+              className="h-80 cursor-text overflow-y-auto bg-[#0b0c0e] p-4 font-mono text-sm sm:h-96"
               onClick={() => inputRef.current?.focus()}
             >
               {lines.map((line, i) => (
                 <div key={i} className="mb-1">
                   {line.type === "input" ? (
                     <div>
-                      <span className="text-cyber-blue">visitor@ghost</span>
+                      <span className="text-cyber-green">ghost@nidhal</span>
                       <span className="text-foreground/50">:</span>
-                      <span className="text-cyber-purple">~</span>
+                      <span className="text-foreground/40">~</span>
                       <span className="text-foreground/50">$ </span>
                       <span className="text-foreground">{line.content}</span>
                     </div>
                   ) : (
-                    <pre className="text-cyber-green/80 whitespace-pre-wrap break-words">
+                    <pre className="whitespace-pre-wrap break-words text-foreground/60">
                       {line.content}
                     </pre>
                   )}
@@ -149,9 +156,9 @@ export default function HackerTerminal() {
 
               {/* Current input line */}
               <div className="flex items-center">
-                <span className="text-cyber-blue">visitor@ghost</span>
+                <span className="text-cyber-green">ghost@nidhal</span>
                 <span className="text-foreground/50">:</span>
-                <span className="text-cyber-purple">~</span>
+                <span className="text-foreground/40">~</span>
                 <span className="text-foreground/50">$ </span>
                 <input
                   ref={inputRef}
@@ -159,7 +166,7 @@ export default function HackerTerminal() {
                   value={currentInput}
                   onChange={(e) => setCurrentInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  className="flex-1 bg-transparent outline-none text-foreground font-mono text-sm caret-cyber-green"
+                  className="flex-1 bg-transparent outline-none text-foreground font-mono text-sm caret-white"
                   autoComplete="off"
                   spellCheck={false}
                   aria-label="Terminal input"

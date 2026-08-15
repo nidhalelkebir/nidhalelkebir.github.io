@@ -2,111 +2,112 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+
+const phases = [
+  "Establishing secure channel",
+  "Verifying credential chain",
+  "Syncing Credly badge registry",
+  "Mapping threat topology",
+  "Calibrating holographic layer",
+  "Access granted",
+];
 
 export default function LoadingScreen({ onComplete }: { onComplete: () => void }) {
-  const [phase, setPhase] = useState(0);
   const [progress, setProgress] = useState(0);
 
-  const phases = [
-    "Initializing system...",
-    "Loading kernel modules...",
-    "Establishing secure connection...",
-    "Decrypting data streams...",
-    "Bypassing firewall... [AUTHORIZED]",
-    "Loading portfolio assets...",
-    "SYSTEM ACCESS GRANTED",
-  ];
-
   useEffect(() => {
-    const progressInterval = setInterval(() => {
+    const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
-          clearInterval(progressInterval);
+          clearInterval(interval);
           return 100;
         }
-        return prev + 2;
+        return prev + 2.5;
       });
-    }, 40);
-
-    return () => clearInterval(progressInterval);
+    }, 32);
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
-    if (progress < 100) {
-      const phaseIndex = Math.min(
-        Math.floor((progress / 100) * phases.length),
-        phases.length - 1
-      );
-      setPhase(phaseIndex);
-    }
-  }, [progress, phases.length]);
-
-  useEffect(() => {
     if (progress >= 100) {
-      const timer = setTimeout(onComplete, 800);
+      const timer = setTimeout(onComplete, 600);
       return () => clearTimeout(timer);
     }
   }, [progress, onComplete]);
 
+  const phase = Math.min(Math.floor((progress / 100) * phases.length), phases.length - 1);
+  const done = progress >= 100;
+
   return (
     <AnimatePresence>
-      {progress <= 100 && (
-        <motion.div
-          className="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center"
-          exit={{ opacity: 0, scale: 1.1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="w-full max-w-xl px-6">
-            {/* ASCII Art Header */}
-            <pre className="text-cyber-green text-xs sm:text-sm font-mono mb-8 text-center leading-tight">
-{`
- ██████╗ ██╗  ██╗ ██████╗ ███████╗████████╗
-██╔════╝ ██║  ██║██╔═══██╗██╔════╝╚══██╔══╝
-██║  ███╗███████║██║   ██║███████╗   ██║   
-██║   ██║██╔══██║██║   ██║╚════██║   ██║   
-╚██████╔╝██║  ██║╚██████╔╝███████║   ██║   
- ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝   ╚═╝   
-`}
-            </pre>
+      <motion.div
+        className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#05060a]"
+        exit={{ opacity: 0, filter: "blur(12px)" }}
+        transition={{ duration: 0.6 }}
+      >
+        {/* Ambient glow */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(0,229,255,0.14),transparent_60%)]" />
 
-            {/* Terminal-style log messages */}
-            <div className="font-mono text-sm mb-6 space-y-1">
-              {phases.slice(0, phase + 1).map((text, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className={`${
-                    i === phases.length - 1 && phase === phases.length - 1
-                      ? "text-cyber-green font-bold text-lg neon-green-glow"
-                      : "text-cyber-green/70"
-                  }`}
-                >
-                  <span className="text-cyber-blue">root@system:~$</span> {text}
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Progress bar */}
-            <div className="w-full bg-dark-800 border border-cyber-green/30 rounded-sm overflow-hidden h-4 mb-2">
+        <div className="relative w-full max-w-md px-6">
+          {/* Rotating holo shield */}
+          <div className="relative mx-auto mb-10 h-28 w-28">
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-0 rounded-full border border-cyan-400/25 border-t-cyan-400 border-r-violet-500"
+            />
+            <motion.div
+              animate={{ rotate: -360 }}
+              transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-3 rounded-full border border-violet-500/25 border-b-violet-400"
+            />
+            <div className="absolute inset-0 flex items-center justify-center">
               <motion.div
-                className="h-full bg-gradient-to-r from-cyber-green to-cyber-blue"
-                initial={{ width: 0 }}
-                animate={{ width: `${progress}%` }}
-                transition={{ duration: 0.1 }}
-                style={{
-                  boxShadow: "0 0 10px #00ff41, 0 0 20px #00ff41",
-                }}
-              />
-            </div>
-
-            <div className="flex justify-between font-mono text-xs text-cyber-green/60">
-              <span>Loading...</span>
-              <span>{Math.min(progress, 100)}%</span>
+                animate={{ opacity: [0.65, 1, 0.65], scale: [1, 1.06, 1] }}
+                transition={{ duration: 2.2, repeat: Infinity }}
+                className=""
+              >
+                <Image src="/skull.svg" alt="Ghost mark" width={44} height={44} priority />
+              </motion.div>
             </div>
           </div>
-        </motion.div>
-      )}
+
+          {/* Current phase */}
+          <div className="mb-5 h-6 text-center">
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={phase}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25 }}
+                className={`font-mono text-xs uppercase tracking-[0.24em] ${
+                  done ? "text-cyber-green" : "text-foreground/50"
+                }`}
+              >
+                {phases[phase]}
+              </motion.p>
+            </AnimatePresence>
+          </div>
+
+          {/* Progress rail */}
+          <div className="h-[3px] w-full overflow-hidden rounded-full bg-white/[0.07]">
+            <motion.div
+              className="h-full rounded-full bg-foreground/80"
+              initial={{ width: 0 }}
+              animate={{ width: `${Math.min(progress, 100)}%` }}
+              transition={{ duration: 0.15 }}
+              
+            />
+          </div>
+
+          <div className="mt-3 flex justify-between font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/30">
+            <span>Booting</span>
+            <span>{Math.min(Math.round(progress), 100)}%</span>
+          </div>
+        </div>
+      </motion.div>
     </AnimatePresence>
   );
 }

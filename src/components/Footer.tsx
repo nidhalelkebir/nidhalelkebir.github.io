@@ -1,7 +1,14 @@
 "use client";
 
 import { personalInfo } from "@/data/portfolio";
-import { FaGithub, FaLinkedin, FaEnvelope, FaArrowUp } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaEnvelope, FaArrowUp, FaShieldAlt } from "react-icons/fa";
+
+const socials = [
+  { href: personalInfo.github, icon: FaGithub, label: "GitHub", hover: "hover:text-cyber-blue" },
+  { href: personalInfo.linkedin, icon: FaLinkedin, label: "LinkedIn", hover: "hover:text-cyber-blue" },
+  { href: personalInfo.credly, icon: FaShieldAlt, label: "Credly", hover: "hover:text-cyber-purple" },
+  { href: `mailto:${personalInfo.email}`, icon: FaEnvelope, label: "Email", hover: "hover:text-cyber-green" },
+];
 
 export default function Footer() {
   const handleBackToTop = () => {
@@ -9,54 +16,47 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-cyber-green/10 py-10 px-4 mt-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="section-shell p-5 sm:p-6 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
-          {/* Left */}
-          <div className="font-mono text-xs text-foreground/50 text-center sm:text-left">
-            <p>
-              <span className="text-cyber-green">portfolio.status:</span> live and actively maintained
+    <footer className="relative mt-10 px-4 py-12">
+      {/* Horizon glow */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[1px] bg-white/[0.07]" />
+
+      <div className="mx-auto max-w-6xl">
+        <div className="section-shell glass-edge flex flex-col items-center justify-between gap-6 rounded-xl p-6 sm:flex-row">
+          <div className="text-center font-mono text-xs text-foreground/45 sm:text-left">
+            <p className="flex items-center justify-center gap-2 sm:justify-start">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyber-green opacity-70" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-cyber-green" />
+              </span>
+              <span className="text-foreground/60">status:</span> live · badges synced from Credly
             </p>
-            <p className="mt-1">
-              &copy; {new Date().getFullYear()} {personalInfo.name}. All rights
-              reserved.
+            <p className="mt-2">
+              © {new Date().getFullYear()} {personalInfo.name}. Built with Next.js, Three.js &amp; Tailwind.
             </p>
           </div>
 
-          {/* Social links */}
-          <div className="flex items-center space-x-4">
-            <a
-              href={personalInfo.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-foreground/40 hover:text-cyber-green transition-colors"
-              aria-label="GitHub"
-            >
-              <FaGithub size={18} />
-            </a>
-            <a
-              href={personalInfo.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-foreground/40 hover:text-cyber-blue transition-colors"
-              aria-label="LinkedIn"
-            >
-              <FaLinkedin size={18} />
-            </a>
-            <a
-              href={`mailto:${personalInfo.email}`}
-              className="text-foreground/40 hover:text-cyber-green transition-colors"
-              aria-label="Email"
-            >
-              <FaEnvelope size={18} />
-            </a>
+          <div className="flex items-center gap-2">
+            {socials.map((social) => {
+              const Icon = social.icon;
+              return (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target={social.href.startsWith("mailto:") ? undefined : "_blank"}
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  className={`flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-foreground/45 transition-colors hover:border-white/25 ${social.hover}`}
+                >
+                  <Icon size={16} />
+                </a>
+              );
+            })}
 
-            {/* Back to top */}
             <button
               type="button"
               onClick={handleBackToTop}
-              className="ml-4 p-2 border border-cyber-green/20 rounded-lg text-foreground/40 hover:text-cyber-green hover:border-cyber-green/50 transition-all"
               aria-label="Back to top"
+              className="ml-2 flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-foreground/70 transition-colors hover:border-white/25"
             >
               <FaArrowUp size={14} />
             </button>

@@ -13,26 +13,26 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Nidhal El Kebir | Cybersecurity Portfolio",
+  title: "Nidhal El Kebir | Cybersecurity Engineer",
   description:
-    "Portfolio of a Cybersecurity Engineering student specializing in penetration testing, ethical hacking, and security research. View projects, certifications, and skills.",
+    "Cybersecurity engineering student specializing in penetration testing, vulnerability assessment, and network security. 34 verified certifications from Cisco, IBM, Fortinet, and AWS.",
   icons: {
     icon: "/skull.svg",
   },
   keywords: [
     "cybersecurity",
-    "ethical hacking",
     "penetration testing",
-    "security researcher",
-    "portfolio",
-    "CTF",
-    "infosec",
+    "vulnerability assessment",
+    "network security",
+    "security analyst",
+    "information security",
+    "Nidhal El Kebir",
   ],
   authors: [{ name: "Nidhal El Kebir" }],
   openGraph: {
-    title: "Nidhal El Kebir | Cybersecurity Portfolio",
+    title: "Nidhal El Kebir | Cybersecurity Engineer",
     description:
-      "Portfolio of a Cybersecurity Engineering student specializing in penetration testing, ethical hacking, and security research.",
+      "Penetration testing, vulnerability assessment, and network security. 34 verified certifications from Cisco, IBM, Fortinet, and AWS.",
     type: "website",
     locale: "en_US",
   },

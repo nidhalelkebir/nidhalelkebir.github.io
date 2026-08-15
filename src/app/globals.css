@@ -1,39 +1,55 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Minimal dark — near-monochrome surface, one accent.
+   No glow storms, no animated gradients, no scanlines.
+   ============================================================ */
+
 @theme inline {
-  --color-background: #0a0a0a;
-  --color-foreground: #e0e0e0;
-  --color-neon-green: #00ff41;
-  --color-neon-blue: #00d4ff;
-  --color-neon-red: #ff0040;
-  --color-dark-900: #0a0a0a;
-  --color-dark-800: #111111;
-  --color-dark-700: #1a1a2e;
-  --color-dark-600: #16213e;
-  --color-cyber-green: #00ff41;
-  --color-cyber-blue: #00d4ff;
-  --color-cyber-red: #ff0040;
-  --color-cyber-purple: #bd00ff;
+  --color-background: #0b0c0e;
+  --color-foreground: #e8eaed;
+
+  /* Legacy token names retained so every section inherits the calm palette */
+  --color-cyber-green: #4ade80;
+  --color-cyber-blue: #7dd3fc;
+  --color-cyber-purple: #a5b4fc;
+  --color-cyber-red: #f87171;
+  --color-neon-green: #4ade80;
+  --color-neon-blue: #7dd3fc;
+  --color-neon-red: #f87171;
+
+  --color-dark-900: #0b0c0e;
+  --color-dark-800: #101215;
+  --color-dark-700: #16191d;
+  --color-dark-600: #1c2025;
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+:root {
+  --accent: #7dd3fc;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.16);
+  --muted: rgba(232, 234, 237, 0.55);
+}
+
 * {
   scrollbar-width: thin;
-  scrollbar-color: #00ff41 #0a0a0a;
+  scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
 }
 
 *::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 *::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: transparent;
 }
 
 *::-webkit-scrollbar-thumb {
-  background: #00ff41;
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 99px;
 }
 
 html {
@@ -41,188 +57,113 @@ html {
 }
 
 body {
-  background:
-    radial-gradient(circle at 15% 20%, rgba(0, 212, 255, 0.09), transparent 35%),
-    radial-gradient(circle at 82% 12%, rgba(0, 255, 65, 0.08), transparent 38%),
-    radial-gradient(circle at 62% 8%, rgba(255, 0, 64, 0.07), transparent 30%),
-    radial-gradient(circle at 50% 85%, rgba(0, 255, 65, 0.06), transparent 40%),
-    #0a0a0a;
-  color: #e0e0e0;
+  background: #0b0c0e;
+  color: #e8eaed;
   font-family: var(--font-mono), 'Courier New', monospace;
   overflow-x: hidden;
-  position: relative;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -2;
-  opacity: 0.26;
-  background-image:
-    linear-gradient(rgba(0, 255, 65, 0.09) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 212, 255, 0.08) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.95), transparent 88%);
-}
-
-body::after {
-  content: "";
-  position: fixed;
-  inset: -15% -10%;
-  pointer-events: none;
-  z-index: -1;
-  background:
-    radial-gradient(circle at 18% 24%, rgba(0, 212, 255, 0.12), transparent 36%),
-    radial-gradient(circle at 74% 70%, rgba(0, 255, 65, 0.11), transparent 42%),
-    radial-gradient(circle at 82% 24%, rgba(255, 0, 64, 0.1), transparent 33%);
-  filter: blur(36px);
-  animation: driftFog 16s ease-in-out infinite alternate;
-}
-
-@keyframes driftFog {
-  from {
-    transform: translate3d(-2%, 0, 0) scale(1);
-  }
-  to {
-    transform: translate3d(2%, -1.5%, 0) scale(1.03);
-  }
+  -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background: #00ff41;
-  color: #0a0a0a;
+  background: rgba(125, 211, 252, 0.25);
+  color: #ffffff;
 }
 
-/* Scanline overlay */
+/* Scanline overlay retired — kept as a no-op so markup stays valid */
 .scanlines {
-  pointer-events: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 9998;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 255, 65, 0.015) 2px,
-    rgba(0, 255, 65, 0.015) 4px
-  );
+  display: none;
 }
 
-/* Glitch text effect */
-@keyframes glitch {
-  0% { text-shadow: 2px 0 #ff0040, -2px 0 #00d4ff; }
-  25% { text-shadow: -2px 0 #ff0040, 2px 0 #00d4ff; }
-  50% { text-shadow: 2px 2px #ff0040, -2px -2px #00d4ff; }
-  75% { text-shadow: -2px -2px #ff0040, 2px 2px #00d4ff; }
-  100% { text-shadow: 2px 0 #ff0040, -2px 0 #00d4ff; }
+/* ============================================================
+   Surfaces
+   ============================================================ */
+
+.section-shell,
+.glass {
+  background: #101215;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
 }
 
-.glitch-text {
-  animation: glitch 3s infinite;
+.section-shell:hover,
+.glass:hover {
+  border-color: var(--line-strong);
+  background: #13161a;
 }
 
-@keyframes glitchIntense {
-  0% { transform: translate(0); text-shadow: 2px 0 #ff0040, -2px 0 #00d4ff; }
-  20% { transform: translate(-2px, 2px); text-shadow: -2px 2px #ff0040, 2px -2px #00d4ff; }
-  40% { transform: translate(2px, -2px); text-shadow: 2px -2px #ff0040, -2px 2px #00d4ff; }
-  60% { transform: translate(-1px, 1px); text-shadow: -1px 1px #ff0040, 1px -1px #00d4ff; }
-  80% { transform: translate(1px, -1px); text-shadow: 1px -1px #ff0040, -1px 1px #00d4ff; }
-  100% { transform: translate(0); text-shadow: 2px 0 #ff0040, -2px 0 #00d4ff; }
+.glass-edge::before {
+  content: none;
 }
 
-.glitch-intense {
-  animation: glitchIntense 0.3s infinite;
+/* Tilt classes retained as inert hooks (TiltCard no longer tilts) */
+.tilt-scene,
+.tilt-card,
+.tilt-layer {
+  transform: none;
 }
 
-/* Neon glow effects */
-.neon-green-glow {
-  text-shadow: 0 0 7px #00ff41, 0 0 10px #00ff41, 0 0 21px #00ff41, 0 0 42px #00ff41;
+.tilt-sheen::after {
+  content: none;
 }
 
-.neon-blue-glow {
-  text-shadow: 0 0 7px #00d4ff, 0 0 10px #00d4ff, 0 0 21px #00d4ff, 0 0 42px #00d4ff;
+/* ============================================================
+   Type
+   ============================================================ */
+
+.holo-text {
+  background: none;
+  color: #f2f4f6;
 }
 
-.neon-border-green {
-  box-shadow: 0 0 5px #00ff41, 0 0 10px #00ff41, inset 0 0 5px rgba(0, 255, 65, 0.1);
+.eyebrow {
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
+/* Loud effects neutralized rather than deleted, so existing markup stays safe */
+.neon-green-glow,
+.neon-blue-glow,
+.neon-border-green,
 .neon-border-blue {
-  box-shadow: 0 0 5px #00d4ff, 0 0 10px #00d4ff, inset 0 0 5px rgba(0, 212, 255, 0.1);
+  text-shadow: none;
+  box-shadow: none;
 }
 
-/* Typing cursor */
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+.glitch-text,
+.glitch-intense,
+.crt-flicker,
+.pulse-border,
+.floaty {
+  animation: none;
 }
 
-.cursor-blink::after {
-  content: '█';
-  animation: blink 1s infinite;
-  color: #00ff41;
+.holo-ring::before {
+  content: none;
 }
 
-/* Loading bar animation */
-@keyframes loadingBar {
-  0% { width: 0%; }
-  100% { width: 100%; }
+.scan-sweep {
+  display: none;
 }
 
-.loading-bar {
-  animation: loadingBar 2s ease-in-out forwards;
-}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+.cursor-blink::after { content: '_'; animation: blink 1.2s steps(1) infinite; color: var(--accent); }
 
-/* Pulse border */
-@keyframes pulseBorder {
-  0%, 100% { border-color: #00ff41; box-shadow: 0 0 5px #00ff41; }
-  50% { border-color: #00d4ff; box-shadow: 0 0 5px #00d4ff; }
-}
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in-up { animation: fadeInUp 0.5s ease-out forwards; }
 
-.pulse-border {
-  animation: pulseBorder 3s infinite;
-}
+@keyframes loadingBar { 0% { width: 0%; } 100% { width: 100%; } }
+.loading-bar { animation: loadingBar 2s ease-in-out forwards; }
 
-/* Fade in up */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.fade-in-up {
-  animation: fadeInUp 0.6s ease-out forwards;
-}
-
-/* CRT flicker effect */
-@keyframes flicker {
-  0% { opacity: 0.97; }
-  5% { opacity: 0.95; }
-  10% { opacity: 0.97; }
-  15% { opacity: 0.94; }
-  20% { opacity: 0.98; }
-  100% { opacity: 0.98; }
-}
-
-.crt-flicker {
-  animation: flicker 5s infinite;
-}
-
-.section-shell {
-  background: linear-gradient(140deg, rgba(17, 17, 17, 0.62), rgba(10, 10, 10, 0.44));
-  border: 1px solid rgba(0, 255, 65, 0.16);
-  border-radius: 16px;
-  box-shadow:
-    0 20px 50px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(0, 255, 65, 0.08),
-    inset 0 -1px 0 rgba(255, 0, 64, 0.12);
-  backdrop-filter: blur(7px);
-}
-
-.section-shell:hover {
-  border-color: rgba(0, 255, 65, 0.28);
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

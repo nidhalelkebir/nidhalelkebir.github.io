@@ -14,6 +14,8 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   images: {
     unoptimized: true,
+    // YouTube thumbnails for the Labs section
+    remotePatterns: [{ protocol: "https", hostname: "i.ytimg.com" }],
   },
   basePath,
   assetPrefix: basePath || undefined,

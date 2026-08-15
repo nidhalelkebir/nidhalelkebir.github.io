@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { personalInfo } from "@/data/portfolio";
-import { FaChevronDown } from "react-icons/fa";
+import { personalInfo, certifications, projects } from "@/data/portfolio";
+import { FaArrowRight, FaDownload } from "react-icons/fa";
 
 export default function HeroSection() {
   const [displayText, setDisplayText] = useState("");
@@ -19,7 +20,7 @@ export default function HeroSection() {
         if (!isDeleting) {
           setDisplayText(currentString.substring(0, displayText.length + 1));
           if (displayText === currentString) {
-            setTimeout(() => setIsDeleting(true), 2000);
+            setTimeout(() => setIsDeleting(true), 2400);
           }
         } else {
           setDisplayText(currentString.substring(0, displayText.length - 1));
@@ -29,7 +30,7 @@ export default function HeroSection() {
           }
         }
       },
-      isDeleting ? 50 : 100
+      isDeleting ? 40 : 90
     );
 
     return () => clearTimeout(timeout);
@@ -38,125 +39,98 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center px-4"
+      className="relative flex min-h-screen items-center px-6 sm:px-10"
     >
-      <div className="text-center z-10 max-w-5xl mx-auto section-shell px-6 sm:px-10 py-12 sm:py-16">
-        {/* Decorative top line */}
+      <div className="mx-auto w-full max-w-3xl">
+        {/* Mark */}
         <motion.div
-          initial={{ opacity: 0, width: 0 }}
-          animate={{ opacity: 1, width: "100%" }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="h-[1px] bg-gradient-to-r from-transparent via-cyber-green to-transparent mb-8 mx-auto max-w-md"
-        />
-
-        {/* Terminal prefix */}
-        <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="font-mono text-cyber-blue text-sm sm:text-base mb-4"
+          transition={{ duration: 0.6 }}
         >
-          root@kali:~# ./introduce.sh
-        </motion.p>
+          <Image src="/skull.svg" alt="Ghost mark" width={34} height={34} priority />
+        </motion.div>
 
         {/* Name */}
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-          className="text-4xl sm:text-5xl md:text-7xl font-bold font-mono mb-4 glitch-text"
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-10 font-mono text-4xl font-semibold leading-tight tracking-tight text-foreground sm:text-5xl"
         >
-          <span className="text-foreground">{"{"}</span>
-          <span className="text-cyber-green"> {personalInfo.name} </span>
-          <span className="text-foreground">{"}"}</span>
+          {personalInfo.name}
         </motion.h1>
 
-        {/* Typing animation */}
+        {/* Typing line */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="font-mono text-lg sm:text-xl md:text-2xl mb-2 h-10"
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-4 flex h-7 items-center font-mono text-base text-foreground/60 sm:text-lg"
         >
-          <span className="text-cyber-green/60">&gt; </span>
-          <span className="text-cyber-blue">{displayText}</span>
-          <span className="text-cyber-green animate-pulse">█</span>
+          {displayText}
+          <span className="ml-1 inline-block h-[1.05em] w-[2px] animate-pulse bg-cyber-blue align-middle" />
         </motion.div>
 
         {/* Tagline */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.3 }}
-          className="text-foreground/65 font-mono text-sm sm:text-base mb-10 max-w-2xl mx-auto leading-relaxed"
+          transition={{ duration: 0.6, delay: 0.42 }}
+          className="mt-8 max-w-xl font-mono text-sm leading-relaxed text-foreground/45"
         >
           {personalInfo.tagline}
         </motion.p>
 
+        {/* Actions */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.45 }}
-          className="flex flex-wrap items-center justify-center gap-2 mb-9"
-        >
-          <span className="px-3 py-1 rounded-full border border-cyber-green/35 bg-cyber-green/10 text-cyber-green text-[11px] font-mono uppercase tracking-[0.1em]">
-            Offensive Security
-          </span>
-          <span className="px-3 py-1 rounded-full border border-cyber-blue/35 bg-cyber-blue/10 text-cyber-blue text-[11px] font-mono uppercase tracking-[0.1em]">
-            Pentesting
-          </span>
-          <span className="px-3 py-1 rounded-full border border-cyber-green/35 bg-cyber-green/10 text-cyber-green text-[11px] font-mono uppercase tracking-[0.1em]">
-            CTF Active
-          </span>
-        </motion.div>
-
-        {/* Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.6 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          transition={{ duration: 0.6, delay: 0.55 }}
+          className="mt-10 flex flex-wrap items-center gap-3"
         >
           <a
             href="#projects"
-            className="group relative px-8 py-3 font-mono text-sm border border-cyber-green text-cyber-green hover:bg-cyber-green hover:text-dark-900 transition-all duration-300 neon-border-green"
+            className="group inline-flex items-center gap-2 rounded-md bg-foreground px-5 py-2.5 font-mono text-sm text-[#0b0c0e] transition-opacity hover:opacity-85"
           >
-            <span className="relative z-10">[ View Work ]</span>
-          </a>
-          <a
-            href="#certifications"
-            className="group relative px-8 py-3 font-mono text-sm border border-cyber-blue text-cyber-blue hover:bg-cyber-blue hover:text-dark-900 transition-all duration-300 neon-border-blue"
-          >
-            <span className="relative z-10">[ Certifications ]</span>
+            View work
+            <FaArrowRight
+              size={11}
+              className="transition-transform duration-200 group-hover:translate-x-0.5"
+            />
           </a>
           <a
             href={personalInfo.cvUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative px-8 py-3 font-mono text-sm bg-cyber-green/10 border border-cyber-green/50 text-cyber-green hover:bg-cyber-green/20 transition-all duration-300"
+            className="inline-flex items-center gap-2 rounded-md border border-white/10 px-5 py-2.5 font-mono text-sm text-foreground/75 transition-colors hover:border-white/25 hover:text-foreground"
           >
-            <span className="relative z-10">Download Resume</span>
+            <FaDownload size={11} />
+            CV
           </a>
         </motion.div>
 
-        {/* Decorative bottom line */}
-        <motion.div
-          initial={{ opacity: 0, width: 0 }}
-          animate={{ opacity: 1, width: "100%" }}
-          transition={{ duration: 1, delay: 1.8 }}
-          className="h-[1px] bg-gradient-to-r from-transparent via-cyber-green to-transparent mt-12 mx-auto max-w-md"
-        />
+        {/* Facts */}
+        <motion.dl
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className="mt-16 flex flex-wrap gap-x-12 gap-y-6 border-t border-white/[0.07] pt-8"
+        >
+          {[
+            { value: certifications.length, label: "Certifications" },
+            { value: projects.length, label: "Projects" },
+            { value: 4, label: "Internships" },
+          ].map((item) => (
+            <div key={item.label}>
+              <dt className="font-mono text-2xl text-foreground">{item.value}</dt>
+              <dd className="mt-1 font-mono text-[11px] uppercase tracking-[0.16em] text-foreground/35">
+                {item.label}
+              </dd>
+            </div>
+          ))}
+        </motion.dl>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, y: [0, 10, 0] }}
-        transition={{ delay: 2.5, y: { repeat: Infinity, duration: 2 } }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-cyber-green/50"
-      >
-        <FaChevronDown size={20} />
-      </motion.div>
     </section>
   );
 }

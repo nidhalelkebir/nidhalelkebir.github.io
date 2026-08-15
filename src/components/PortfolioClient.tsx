@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import MatrixRain from "@/components/MatrixRain";
 import LoadingScreen from "@/components/LoadingScreen";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
@@ -12,6 +11,7 @@ import HackerTerminal from "@/components/HackerTerminal";
 import SkillsSection from "@/components/SkillsSection";
 import CertificationsSection from "@/components/CertificationsSection";
 import ProjectsSection from "@/components/ProjectsSection";
+import LabsSection from "@/components/LabsSection";
 import StatsSection from "@/components/StatsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
@@ -29,9 +29,6 @@ export default function PortfolioClient() {
 
   return (
     <>
-      {/* Matrix rain background */}
-      <MatrixRain />
-
       {/* Scanline overlay */}
       <div className="scanlines" />
 
@@ -55,7 +52,7 @@ export default function PortfolioClient() {
         {/* Stats */}
         <StatsSection />
 
-        {/* Terminal */}
+        {/* Ghost shell */}
         <HackerTerminal />
 
         {/* Skills */}
@@ -66,6 +63,9 @@ export default function PortfolioClient() {
 
         {/* Projects */}
         <ProjectsSection />
+
+        {/* Labs */}
+        <LabsSection />
 
         {/* Contact */}
         <ContactSection />

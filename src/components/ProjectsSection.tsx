@@ -3,105 +3,100 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { projects } from "@/data/portfolio";
-import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import { FaGithub, FaExternalLinkAlt, FaFolderOpen } from "react-icons/fa";
+import SectionHeading from "@/components/SectionHeading";
+import TiltCard from "@/components/TiltCard";
 
 export default function ProjectsSection() {
-  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
+  const { ref, inView } = useInView({ threshold: 0.08, triggerOnce: true });
 
   return (
     <section id="projects" className="py-20 px-4" ref={ref}>
       <div className="max-w-6xl mx-auto">
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <p className="font-mono text-cyber-blue text-sm mb-2">
-            $ find ~/projects -type f -name &quot;*.py&quot;
-          </p>
-          <h2 className="font-mono text-3xl sm:text-4xl font-bold text-foreground">
-            <span className="text-cyber-green">~/</span>
-            Projects
-          </h2>
-          <div className="h-[1px] bg-gradient-to-r from-transparent via-cyber-green/50 to-transparent mt-4 max-w-xs mx-auto" />
-        </motion.div>
+        <SectionHeading
+          eyebrow="Build log"
+          title="Projects"
+          subtitle="Security tooling and developer utilities I have built — every one is public on GitHub."
+          inView={inView}
+        />
 
-        {/* Projects grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 40 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-              className="group relative section-shell rounded-lg overflow-hidden hover:shadow-[0_0_20px_rgba(0,255,65,0.1)] transition-all duration-500"
+              transition={{ duration: 0.65, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
             >
-              {/* Project Header */}
-              <div className="relative bg-dark-700/80 border-b border-cyber-green/15 px-6 py-4 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-cyber-green/8 via-transparent to-cyber-blue/8" />
-                <div className="relative flex items-start justify-between gap-4">
-                  <div>
-                    <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-cyber-green/55 mb-2">
-                      Project Case Study
-                    </p>
-                    <h3 className="font-mono text-base sm:text-lg font-semibold text-foreground group-hover:text-cyber-green transition-colors leading-snug">
-                      {project.title}
-                    </h3>
-                  </div>
-                  <div className="font-mono text-xs text-cyber-green/50 bg-dark-900/80 px-2 py-1 rounded border border-cyber-green/20 shrink-0">
-                    {String(index + 1).padStart(2, "0")}
-                  </div>
-                </div>
-              </div>
+              <TiltCard
+                max={6}
+                className="section-shell glass-edge group relative flex h-full flex-col overflow-hidden rounded-xl"
+              >
+                {/* Header band */}
+                <div className="relative overflow-hidden border-b border-white/[0.07] px-6 py-5">
+                  
+                  
 
-              {/* Project Info */}
-              <div className="p-6">
-                <p className="font-mono text-sm text-foreground/60 leading-relaxed mb-4">
-                  {project.description}
-                </p>
-
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="font-mono text-xs px-2 py-1 bg-cyber-green/5 border border-cyber-green/20 text-cyber-green/80 rounded"
-                    >
-                      {tech}
+                  <div className="relative flex items-start justify-between gap-4">
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-foreground/35">
+                        <FaFolderOpen size={11} />
+                        {project.role}
+                      </div>
+                      <h3 className="mt-2.5 font-mono text-lg font-semibold leading-snug text-foreground transition-colors group-hover:text-foreground">
+                        {project.title}
+                      </h3>
+                    </div>
+                    <span className="shrink-0 rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1 font-mono text-xs text-foreground/35">
+                      {String(index + 1).padStart(2, "0")}
                     </span>
-                  ))}
+                  </div>
                 </div>
 
-                <div className="mt-5 pt-4 border-t border-cyber-green/10 flex items-center gap-3">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-3 py-2 bg-dark-800 border border-cyber-green/30 rounded-lg text-cyber-green hover:bg-cyber-green hover:text-dark-900 transition-all text-xs font-mono"
-                    aria-label="View on GitHub"
-                  >
-                    <FaGithub size={14} />
-                    Source
-                  </a>
-                  {project.demo && project.demo !== "#" && (
+                {/* Body */}
+                <div className="flex flex-1 flex-col p-6">
+                  <p className="font-mono text-sm leading-relaxed text-foreground/60">
+                    {project.description}
+                  </p>
+
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {project.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1 font-mono text-[11px] text-foreground/60"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-auto flex items-center gap-3 pt-6">
                     <a
-                      href={project.demo}
+                      href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-3 py-2 bg-dark-800 border border-cyber-blue/30 rounded-lg text-cyber-blue hover:bg-cyber-blue hover:text-dark-900 transition-all text-xs font-mono"
-                      aria-label="View demo"
+                      className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-4 py-2 font-mono text-xs text-foreground/80 transition-all hover:border-white/25 hover:text-foreground"
                     >
-                      <FaExternalLinkAlt size={12} />
-                      Live Demo
+                      <FaGithub size={13} />
+                      Source
                     </a>
-                  )}
+                    {project.demo && project.demo !== "#" && (
+                      <a
+                        href={project.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 font-mono text-xs text-foreground/75 transition-colors hover:border-white/25"
+                      >
+                        <FaExternalLinkAlt size={11} />
+                        {project.demo.includes("npmjs.com") ? "View on npm" : "Live demo"}
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </div>
 
-              {/* Bottom accent line */}
-              <div className="h-[2px] w-0 group-hover:w-full bg-gradient-to-r from-cyber-green via-cyber-blue to-cyber-red transition-all duration-700" />
+                {/* Bottom accent sweep */}
+                <div className="h-[2px] w-0 bg-white/20 transition-all duration-500 group-hover:w-full" />
+              </TiltCard>
             </motion.div>
           ))}
         </div>

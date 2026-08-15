@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { personalInfo } from "@/data/portfolio";
 import { FaGithub, FaLinkedin, FaEnvelope, FaPaperPlane } from "react-icons/fa";
+import SectionHeading from "@/components/SectionHeading";
 
 const WEB3FORMS_ACCESS_KEY = "ca995fb6-4f80-404f-bbab-03668c6595e8";
 
@@ -83,21 +84,12 @@ export default function ContactSection() {
   return (
     <section id="contact" className="py-20 px-4" ref={ref}>
       <div className="max-w-5xl mx-auto">
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <p className="font-mono text-cyber-blue text-sm mb-2">
-            $ secure-connect --profile contact
-          </p>
-          <h2 className="font-mono text-3xl sm:text-4xl font-bold text-foreground">
-            <span className="text-cyber-green">&gt;</span> Get In Touch
-          </h2>
-          <div className="h-[1px] bg-gradient-to-r from-transparent via-cyber-green/50 to-transparent mt-4 max-w-xs mx-auto" />
-        </motion.div>
+        <SectionHeading
+          eyebrow="Secure channel"
+          title="Get In Touch"
+          subtitle="Open to cybersecurity internships, collaborations, and CTF teams."
+          inView={inView}
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact info */}
@@ -116,11 +108,11 @@ export default function ContactSection() {
             <div className="space-y-4">
               <a
                 href={`mailto:${personalInfo.email}`}
-                className="flex items-center space-x-4 p-4 section-shell rounded-xl hover:border-cyber-green/35 transition-all group"
+                className="group flex items-center gap-4 rounded-xl p-4 section-shell transition-colors"
               >
-                <FaEnvelope className="text-cyber-green text-xl group-hover:neon-green-glow" />
+                <FaEnvelope className="text-lg text-foreground/50 transition-colors group-hover:text-foreground" />
                 <div>
-                  <p className="font-mono text-xs text-cyber-blue">Email</p>
+                  <p className="font-mono text-xs text-foreground/40">Email</p>
                   <p className="font-mono text-sm text-foreground/80">
                     {personalInfo.email}
                   </p>
@@ -131,11 +123,11 @@ export default function ContactSection() {
                 href={personalInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-4 p-4 section-shell rounded-xl hover:border-cyber-green/35 transition-all group"
+                className="group flex items-center gap-4 rounded-xl p-4 section-shell transition-colors"
               >
-                <FaGithub className="text-cyber-green text-xl group-hover:neon-green-glow" />
+                <FaGithub className="text-lg text-foreground/50 transition-colors group-hover:text-foreground" />
                 <div>
-                  <p className="font-mono text-xs text-cyber-blue">GitHub</p>
+                  <p className="font-mono text-xs text-foreground/40">GitHub</p>
                   <p className="font-mono text-sm text-foreground/80">
                     {personalInfo.github}
                   </p>
@@ -146,11 +138,11 @@ export default function ContactSection() {
                 href={personalInfo.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-4 p-4 section-shell rounded-xl hover:border-cyber-green/35 transition-all group"
+                className="group flex items-center gap-4 rounded-xl p-4 section-shell transition-colors"
               >
-                <FaLinkedin className="text-cyber-blue text-xl" />
+                <FaLinkedin className="text-lg text-foreground/50" />
                 <div>
-                  <p className="font-mono text-xs text-cyber-blue">LinkedIn</p>
+                  <p className="font-mono text-xs text-foreground/40">LinkedIn</p>
                   <p className="font-mono text-sm text-foreground/80">
                     {personalInfo.linkedin}
                   </p>
@@ -167,7 +159,7 @@ export default function ContactSection() {
           >
             <form onSubmit={handleSubmit} className="space-y-4 section-shell p-5 sm:p-6 rounded-xl">
               <div>
-                <label className="font-mono text-xs text-cyber-blue block mb-1">
+                <label className="mb-1.5 block font-mono text-xs text-foreground/50">
                   Name:
                 </label>
                 <input
@@ -177,13 +169,13 @@ export default function ContactSection() {
                   onChange={(e) =>
                     setFormData((prev) => ({ ...prev, name: e.target.value }))
                   }
-                  className="w-full bg-dark-900/55 border border-cyber-green/20 rounded-lg px-4 py-3 font-mono text-sm text-foreground focus:border-cyber-green focus:outline-none focus:shadow-[0_0_10px_rgba(0,255,65,0.2)] transition-all"
+                  className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-foreground placeholder:text-foreground/25 transition-all focus:border-white/30 focus:outline-none"
                   placeholder="John Doe"
                 />
               </div>
 
               <div>
-                <label className="font-mono text-xs text-cyber-blue block mb-1">
+                <label className="mb-1.5 block font-mono text-xs text-foreground/50">
                   Email:
                 </label>
                 <input
@@ -193,13 +185,13 @@ export default function ContactSection() {
                   onChange={(e) =>
                     setFormData((prev) => ({ ...prev, email: e.target.value }))
                   }
-                  className="w-full bg-dark-900/55 border border-cyber-green/20 rounded-lg px-4 py-3 font-mono text-sm text-foreground focus:border-cyber-green focus:outline-none focus:shadow-[0_0_10px_rgba(0,255,65,0.2)] transition-all"
+                  className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-foreground placeholder:text-foreground/25 transition-all focus:border-white/30 focus:outline-none"
                   placeholder="john@example.com"
                 />
               </div>
 
               <div>
-                <label className="font-mono text-xs text-cyber-blue block mb-1">
+                <label className="mb-1.5 block font-mono text-xs text-foreground/50">
                   Message:
                 </label>
                 <textarea
@@ -209,7 +201,7 @@ export default function ContactSection() {
                     setFormData((prev) => ({ ...prev, message: e.target.value }))
                   }
                   rows={5}
-                  className="w-full bg-dark-900/55 border border-cyber-green/20 rounded-lg px-4 py-3 font-mono text-sm text-foreground focus:border-cyber-green focus:outline-none focus:shadow-[0_0_10px_rgba(0,255,65,0.2)] transition-all resize-none"
+                  className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-foreground placeholder:text-foreground/25 transition-all focus:border-white/30 focus:outline-none resize-none"
                   placeholder="Your message..."
                 />
               </div>
@@ -217,10 +209,10 @@ export default function ContactSection() {
               <button
                 type="submit"
                 disabled={sending}
-                className="w-full py-3 px-6 font-mono text-sm border border-cyber-green text-cyber-green hover:bg-cyber-green hover:text-dark-900 transition-all duration-300 rounded-lg flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex w-full items-center justify-center gap-2 rounded-md bg-foreground px-6 py-3 font-mono text-sm text-[#0b0c0e] transition-opacity hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <FaPaperPlane />
-                <span>{sending ? "Sending securely..." : "[ Send Message ]"}</span>
+                <span>{sending ? "Sending securely..." : "Send secure message"}</span>
               </button>
             </form>
 
