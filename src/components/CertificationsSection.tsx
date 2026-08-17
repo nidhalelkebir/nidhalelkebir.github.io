@@ -3,7 +3,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { certifications, personalInfo, type Certification } from "@/data/portfolio";
+import {
+  certifications,
+  certificationsByDate,
+  personalInfo,
+  type Certification,
+} from "@/data/portfolio";
 import { FaTimes, FaExternalLinkAlt, FaShieldAlt, FaCheckCircle } from "react-icons/fa";
 import Image from "next/image";
 import SectionHeading from "@/components/SectionHeading";
@@ -28,6 +33,7 @@ const formatDate = (iso: string) =>
 export default function CertificationsSection() {
   const [selectedCert, setSelectedCert] = useState<Certification | null>(null);
   const [issuerFilter, setIssuerFilter] = useState("All");
+  const [sortBy, setSortBy] = useState<"relevance" | "recent">("relevance");
   const [expanded, setExpanded] = useState(false);
   const { ref, inView } = useInView({ threshold: 0.05, triggerOnce: true });
 
@@ -43,13 +49,12 @@ export default function CertificationsSection() {
     return ["All", ...[...counts.entries()].sort((a, b) => b[1] - a[1]).map(([name]) => name)];
   }, []);
 
-  const filtered = useMemo(
-    () =>
-      issuerFilter === "All"
-        ? certifications
-        : certifications.filter((c) => c.issuer === issuerFilter),
-    [issuerFilter]
-  );
+  const filtered = useMemo(() => {
+    const source = sortBy === "relevance" ? certifications : certificationsByDate;
+    return issuerFilter === "All"
+      ? source
+      : source.filter((c) => c.issuer === issuerFilter);
+  }, [issuerFilter, sortBy]);
 
   const visible = expanded ? filtered : filtered.slice(0, INITIAL_VISIBLE);
 
@@ -87,7 +92,7 @@ export default function CertificationsSection() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="mb-8 flex flex-wrap gap-2"
+          className="mb-8 flex flex-wrap items-center gap-2"
         >
           {issuers.map((issuer) => {
             const active = issuer === issuerFilter;
@@ -108,6 +113,30 @@ export default function CertificationsSection() {
               </button>
             );
           })}
+
+          {/* Ordering */}
+          <div className="ml-auto flex items-center gap-1 font-mono text-[11px]">
+            <span className="mr-1 text-foreground/25">Sort</span>
+            {(
+              [
+                ["relevance", "Most relevant"],
+                ["recent", "Most recent"],
+              ] as const
+            ).map(([key, label]) => (
+              <button
+                key={key}
+                onClick={() => setSortBy(key)}
+                aria-pressed={sortBy === key}
+                className={`rounded px-2 py-1 transition-colors ${
+                  sortBy === key
+                    ? "text-foreground underline decoration-white/30 underline-offset-4"
+                    : "text-foreground/40 hover:text-foreground/70"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         </motion.div>
 
         {/* Badge grid */}

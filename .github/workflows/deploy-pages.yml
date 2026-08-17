@@ -9,6 +9,10 @@ on:
   push:
     branches: ["main"]
 
+  # Rebuild daily so badges earned on Credly appear without needing a push
+  schedule:
+    - cron: "17 6 * * *"
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -74,7 +78,9 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} next build
+        # Must be `npm run build`, not `next build` — the Credly sync is an npm
+        # `prebuild` hook and is skipped if next is invoked directly.
+        run: ${{ steps.detect-package-manager.outputs.manager }} run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

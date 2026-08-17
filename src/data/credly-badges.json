@@ -1,5 +1,22 @@
 [
   {
+    "id": "a32e865b-38bd-4671-ad11-05c54a5465cc",
+    "title": "Microsoft Cybersecurity Analyst Professional Certificate",
+    "issuer": "Coursera",
+    "authorizedBy": null,
+    "date": "2026-08-17",
+    "level": "Foundational",
+    "description": "Prepare for a new career in this high-demand field with professional training from Microsoft — an industry-recognized leader in cybersecurity. The role of a cybersecurity analyst includes monitoring networks for vulnerabilities or potential threats, mitigating attacks on the network infrastructures, and implementing strategies for data protection. With 95% of fortune 500 companies using Azure, it’s critical for cybersecurity professionals to learn to protect data within an Azure environment.",
+    "skills": [
+      "Cyber Security",
+      "Cyber Threat Intelligence",
+      "Incident Response",
+      "Vulnerability Management"
+    ],
+    "image": "/certs/credly/microsoft-cybersecurity-analyst-professional-certificate.png",
+    "credentialUrl": "https://www.credly.com/badges/a32e865b-38bd-4671-ad11-05c54a5465cc/public_url"
+  },
+  {
     "id": "639fc81d-a917-494a-8ec8-b31a4f62221d",
     "title": "IBM Cybersecurity Analyst Professional Certificate (V2)",
     "issuer": "Coursera",
